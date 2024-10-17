@@ -9,17 +9,15 @@ def check_credentials(username, password):
 # Main app logic
 def main():
     # Initialize session states
-    if "logged_in" not in st.session_state:
-        st.session_state.logged_in = False
-    if "city_selected" not in st.session_state:
-        st.session_state.city_selected = False
-
-    # Determine which page to display
-    if not st.session_state.logged_in:
+    if "page" not in st.session_state:
+        st.session_state.page = "login"  # Start on the login page
+    
+    # Display the appropriate page based on session state
+    if st.session_state.page == "login":
         display_login_page()
-    elif not st.session_state.city_selected:
+    elif st.session_state.page == "city_selection":
         display_city_selection_page()
-    else:
+    elif st.session_state.page == "form":
         display_form_page()
 
 def display_login_page():
@@ -32,8 +30,9 @@ def display_login_page():
     # Login button logic
     if st.button("Login"):
         if check_credentials(username, password):
-            st.session_state.logged_in = True  # Update login state
-            st.success("Login successful!")      # Show success message
+            st.session_state.page = "city_selection"  # Navigate to city selection
+            st.success("Login successful!")  # Show success message
+            st.experimental_rerun()  # Refresh the app to show the city selection page
         else:
             st.error("Invalid username or password. Please try again.")
 
@@ -45,10 +44,9 @@ def display_city_selection_page():
     
     # Submit button for city selection
     if st.button("Submit"):
-        st.session_state.city_selected = True  # Update city selection state
         st.session_state.selected_city = city  # Store selected city
-        st.success(f"You have selected: {city}")  # Show selected city
-        st.experimental_rerun()  # Rerun to refresh the state
+        st.session_state.page = "form"  # Navigate to the form page
+        st.experimental_rerun()  # Refresh to show the form page
 
 def display_form_page():
     st.title("User Information Form")
