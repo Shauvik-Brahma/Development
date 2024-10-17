@@ -28,8 +28,9 @@ def display_login_page():
     # Login button logic
     if st.button("Login"):
         if check_credentials(username, password):
-            st.session_state.logged_in = True
-            st.success("Login successful!")
+            st.session_state.logged_in = True  # Update login state
+            st.success("Login successful!")      # Show success message
+            st.experimental_rerun()               # Refresh the app to display the form page
         else:
             st.error("Invalid username or password. Please try again.")
 
@@ -55,4 +56,3 @@ def display_form_page():
 # Run the app
 if __name__ == "__main__":
     main()
-
