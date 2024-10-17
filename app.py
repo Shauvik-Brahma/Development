@@ -2,7 +2,6 @@ import streamlit as st
 
 # Function to check login credentials
 def check_credentials(username, password):
-    # Set the correct username and password
     correct_username = "2001"
     correct_password = "2001"
     return username == correct_username and password == correct_password
@@ -12,9 +11,13 @@ def main():
     # State for login
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
+    
+    # State for page navigation
+    if "page" not in st.session_state:
+        st.session_state.page = "login"
 
     # Login page
-    if not st.session_state.logged_in:
+    if not st.session_state.logged_in and st.session_state.page == "login":
         st.title("Login Page")
         
         # Input fields for login
@@ -22,17 +25,16 @@ def main():
         password = st.text_input("Password", type="password")
         
         # Login button logic
-        login_button = st.button("Login")
-        
-        if login_button:  # Checking for login button press
+        if st.button("Login"):
             if check_credentials(username, password):
                 st.session_state.logged_in = True
-                st.success("Login successful!")
+                st.session_state.page = "form"
+                st.experimental_rerun()  # Rerun the app to "navigate" to the form page
             else:
                 st.error("Invalid username or password. Please try again.")
-    
-    # After login, display the form
-    if st.session_state.logged_in:
+
+    # Form page after successful login
+    if st.session_state.logged_in and st.session_state.page == "form":
         st.title("User Information Form")
         
         # Input form fields
