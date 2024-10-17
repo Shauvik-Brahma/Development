@@ -30,11 +30,13 @@ def display_login_page():
     # Login button logic
     if st.button("Login"):
         if check_credentials(username, password):
-            # Simulate double click effect
             st.session_state.page = "city_selection"  # Navigate to city selection
             st.success("Login successful!")  # Show success message
         else:
             st.error("Invalid username or password. Please try again.")
+
+    # Prompt to click the login button twice
+    st.warning("Click the Login Button twice.")
 
 def display_city_selection_page():
     st.title("Select Your City")
@@ -44,10 +46,11 @@ def display_city_selection_page():
     
     # Submit button for city selection
     if st.button("Submit"):
-        # Simulate double click effect
         st.session_state.selected_city = city  # Store selected city
-        st.success("City selected! Please confirm.")
         st.session_state.page = "form"  # Navigate to the form page
+
+    # Prompt to click the submit button twice
+    st.warning("Click the Submit Button twice.")
 
 def display_form_page():
     st.title("User Information Form")
@@ -65,7 +68,7 @@ def display_form_page():
         submitted = st.form_submit_button("Submit")
     
     if submitted:
-        # Simulate double click effect
+        # Show submitted data after form submission
         st.success("Form submitted successfully!")
         st.write(f"Name: {name}")
         st.write(f"City: {city}")
