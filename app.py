@@ -11,7 +11,7 @@ def main():
     # Initialize session states
     if "page" not in st.session_state:
         st.session_state.page = "login"  # Start on the login page
-    
+
     # Display the appropriate page based on session state
     if st.session_state.page == "login":
         display_login_page()
@@ -32,7 +32,6 @@ def display_login_page():
         if check_credentials(username, password):
             st.session_state.page = "city_selection"  # Navigate to city selection
             st.success("Login successful!")  # Show success message
-            st.experimental_rerun()  # Refresh the app to show the city selection page
         else:
             st.error("Invalid username or password. Please try again.")
 
@@ -46,7 +45,6 @@ def display_city_selection_page():
     if st.button("Submit"):
         st.session_state.selected_city = city  # Store selected city
         st.session_state.page = "form"  # Navigate to the form page
-        st.experimental_rerun()  # Refresh to show the form page
 
 def display_form_page():
     st.title("User Information Form")
