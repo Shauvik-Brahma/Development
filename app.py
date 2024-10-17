@@ -29,7 +29,6 @@ def main():
             if check_credentials(username, password):
                 st.session_state.logged_in = True
                 st.session_state.page = "form"
-                st.experimental_rerun()  # Rerun the app to "navigate" to the form page
             else:
                 st.error("Invalid username or password. Please try again.")
 
