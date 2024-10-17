@@ -12,12 +12,8 @@ def main():
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
     
-    # State for page navigation
-    if "page" not in st.session_state:
-        st.session_state.page = "login"
-
     # Login page
-    if not st.session_state.logged_in and st.session_state.page == "login":
+    if not st.session_state.logged_in:
         st.title("Login Page")
         
         # Input fields for login
@@ -28,12 +24,12 @@ def main():
         if st.button("Login"):
             if check_credentials(username, password):
                 st.session_state.logged_in = True
-                st.session_state.page = "form"
+                st.success("Login successful!")
             else:
                 st.error("Invalid username or password. Please try again.")
 
     # Form page after successful login
-    if st.session_state.logged_in and st.session_state.page == "form":
+    if st.session_state.logged_in:
         st.title("User Information Form")
         
         # Input form fields
