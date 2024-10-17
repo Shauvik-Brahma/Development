@@ -35,9 +35,6 @@ def display_login_page():
         else:
             st.error("Invalid username or password. Please try again.")
 
-    # Prompt to click the login button twice
-    st.warning("Click the Login Button twice.")
-
 def display_city_selection_page():
     st.title("Select Your City")
     
@@ -47,10 +44,8 @@ def display_city_selection_page():
     # Submit button for city selection
     if st.button("Submit"):
         st.session_state.selected_city = city  # Store selected city
+        st.success("City selected! Please click Submit again to confirm.")
         st.session_state.page = "form"  # Navigate to the form page
-
-    # Prompt to click the submit button twice
-    st.warning("Click the Submit Button twice.")
 
 def display_form_page():
     st.title("User Information Form")
