@@ -13,10 +13,10 @@ def main():
         st.session_state.logged_in = False
     
     # Determine which page to display
-    if not st.session_state.logged_in:
-        display_login_page()
-    else:
+    if st.session_state.logged_in:
         display_form_page()
+    else:
+        display_login_page()
 
 def display_login_page():
     st.title("Login Page")
@@ -30,7 +30,7 @@ def display_login_page():
         if check_credentials(username, password):
             st.session_state.logged_in = True  # Update login state
             st.success("Login successful!")      # Show success message
-            st.experimental_rerun()               # Refresh the app to display the form page
+            # No need for experimental rerun here
         else:
             st.error("Invalid username or password. Please try again.")
 
