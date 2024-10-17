@@ -22,14 +22,17 @@ def main():
         password = st.text_input("Password", type="password")
         
         # Login button logic
-        if st.button("Login"):
+        login_button = st.button("Login")
+        
+        if login_button:  # Checking for login button press
             if check_credentials(username, password):
-                st.success("Login successful!")
                 st.session_state.logged_in = True
+                st.success("Login successful!")
             else:
                 st.error("Invalid username or password. Please try again.")
-    else:
-        # After login, display the form
+    
+    # After login, display the form
+    if st.session_state.logged_in:
         st.title("User Information Form")
         
         # Input form fields
@@ -42,7 +45,8 @@ def main():
             submitted = st.form_submit_button("Submit")
         
         if submitted:
-            # Show submitted data
+            # Show submitted data after form submission
+            st.success("Form submitted successfully!")
             st.write(f"Name: {name}")
             st.write(f"City: {city}")
             st.write(f"Age: {age}")
