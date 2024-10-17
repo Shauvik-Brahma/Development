@@ -1,3 +1,5 @@
+import os
+import json
 import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
@@ -5,11 +7,14 @@ from google.oauth2.service_account import Credentials
 # Define the scope for Google Sheets API
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-# Path to the service account credentials JSON file
-SERVICE_ACCOUNT_FILE = 'C:/Users/Shauvik Brahma/Credentials.json'  # Replace with the correct path
+# Load credentials from the environment variable
+credentials_json = os.environ.get("API_KEY")
+
+# Load the credentials into a dictionary
+credentials_dict = json.loads(credentials_json)
 
 # Authenticate using the service account
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+creds = Credentials.from_service_account_info(credentials_dict, scopes=SCOPES)
 
 # Initialize the Google Sheets API client
 client = gspread.authorize(creds)
