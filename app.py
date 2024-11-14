@@ -1,4 +1,5 @@
 import streamlit as st
+import mysql.connector
 
 # Function to check login credentials
 def check_credentials(username, password):
